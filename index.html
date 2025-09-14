@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projetos Educativos - Maria Julia</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f9fc;
+      color: #333;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .about,
+    .menu {
+      flex: 1 1 300px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .about h2,
+    .menu h2 {
+      margin-top: 0;
+      color: #4CAF50;
+    }
+
+    .menu ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .menu li {
+      margin-bottom: 15px;
+    }
+
+    .menu a {
+      display: inline-block;
+      text-decoration: none;
+      color: #333;
+      background-color: #FFEB3B;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .menu a:hover {
+      background-color: #fdd835;
+    }
+
+    footer {
+      background-color: #777272;
+      padding: 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Cabeçalho -->
+  <header style="text-align: center; padding: 20px;">
+    <h1>EducaPlay</h1>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <div class="container">
+
+    <!-- Apresentação -->
+    <section class="about">
+      <h2>EducaPlay</h2>
+      <p>
+        É uma plataforma educativa com quizzes interativos e jogos de aprendizagem.
+        O objetivo é tornar o estudo mais dinâmico e divertido, ajudando os alunos a praticarem conteúdos de forma leve
+        e acessível.
+      </p>
+
+      <h2>Sobre Mim</h2>
+      <p>
+        Meu nome é <strong>Maria Julia</strong> sou formada em <strong>Ciência da Computação</strong>, possuo
+        <strong>Pós-Graduação em Engenharia de Software</strong>.
+        Atualmente, curso <strong>Licenciatura em Pedagogia</strong>,unindo minha paixão pela tecnologia ao desejo de
+        contribuir com a educação. Busco criar projetos pedagógicos interativos, criativos e acessíveis, que tornem o
+        aprendizado mais dinâmico e significativo para as crianças.
+      </p>
+
+    </section>
+
+    <!-- Menu de Atividades -->
+    <section class="menu">
+      <h2>Atividades Disponíveis</h2>
+      <ul>
+        <li><a href="atividades/quiz-bullying.html">🎯 Quiz sobre Bullying</a></li>
+        <li><a href="atividades/quiz-matematica.html">🧮 Quiz Matemática</a></li>
+        <li><a href="atividades/leitura.html">📖 Quiz Leitura</a></li>
+        <li><a href="atividades/numeros.html">🔢 Números</a></li>
+        <li><a href="atividades/digitacao.html">⌨️ Treinador de Digitação</a></li>
+      </ul>
+    </section>
+
+  </div>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; 2025 | Todos os direitos reservados | Desenvolvido por Maria Julia</p>
+  </footer>
+
+</body>
+
+</html>

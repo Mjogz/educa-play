@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Treinador de Digitação - Maria Julia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4fdf6;
+      color: #333;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 30px auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #388e3c;
+      margin-bottom: 20px;
+    }
+
+    #temporizador {
+      font-size: 1.3em;
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #4CAF50;
+    }
+
+    #textoExemplo {
+      background-color: #e8f5e9;
+      padding: 15px;
+      border: 1px solid #c8e6c9;
+      border-radius: 5px;
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      font-size: 1.1em;
+      padding: 10px;
+      border-radius: 5px;
+      border: 2px solid #ccc;
+      resize: vertical;
+    }
+
+    textarea.correto {
+      border-color: #4CAF50;
+      background-color: #e6ffe6;
+    }
+
+    textarea.errado {
+      border-color: #f44336;
+      background-color: #ffe6e6;
+    }
+
+    #resultado {
+      margin-top: 15px;
+      font-size: 1.1em;
+      color: #222;
+      text-align: center;
+    }
+
+    .botao {
+      display: inline-block;
+      margin: 15px 5px 0 5px;
+      padding: 10px 20px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    .botao-verde {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .botao-verde:hover {
+      background-color: #45a049;
+    }
+
+    .botao-amarelo {
+      background-color: #FFD700;
+      color: black;
+    }
+
+    .botao-amarelo:hover {
+      background-color: #e6c200;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin: 15px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Treinador de Digitação</h1>
+    <p>Desenvolvido por Maria Julia</p>
+  </header>
+
+  <main>
+    <h2>Pratique sua digitação</h2>
+
+    <div id="temporizador">Tempo: 0.00 segundos</div>
+
+    <div id="textoExemplo">Vivemos em um mundo cada vez mais conectado</div>
+
+    <textarea id="caixaDigitacao" placeholder="Comece a digitar aqui..." autofocus></textarea>
+
+    <div id="resultado"></div>
+
+    <div style="text-align: center;">
+      <button id="reiniciarBtn" class="botao botao-verde">Reiniciar</button>
+      <button onclick="window.location.href='../index.html'" class="botao botao-amarelo">Voltar</button>
+    </div>
+  </main>
+
+  <script>
+    const textoAlvo = document.getElementById("textoExemplo").textContent.trim();
+    const caixa = document.getElementById("caixaDigitacao");
+    const resultado = document.getElementById("resultado");
+    const reiniciarBtn = document.getElementById("reiniciarBtn");
+    const temporizador = document.getElementById("temporizador");
+
+    let erros = 0;
+    let inicioTempo = null;
+    let terminou = false;
+    let intervaloId = null;
+
+    function formatarTempo(ms) {
+      return (ms / 1000).toFixed(2);
+    }
+
+    function atualizarTemporizador() {
+      if (!inicioTempo) return;
+      const agora = new Date();
+      const tempoDecorrido = agora - inicioTempo;
+      temporizador.textContent = `Tempo: ${formatarTempo(tempoDecorrido)} segundos`;
+    }
+
+    function iniciarTemporizador() {
+      if (intervaloId) return; // já está rodando
+      intervaloId = setInterval(atualizarTemporizador, 100);
+    }
+
+    function pararTemporizador() {
+      clearInterval(intervaloId);
+      intervaloId = null;
+    }
+
+    function reset() {
+      caixa.value = "";
+      caixa.classList.remove("correto", "errado");
+      resultado.textContent = "";
+      temporizador.textContent = "Tempo: 0.00 segundos";
+      erros = 0;
+      inicioTempo = null;
+      terminou = false;
+      caixa.disabled = false;
+      caixa.focus();
+      pararTemporizador();
+    }
+
+    reiniciarBtn.addEventListener("click", reset);
+
+    caixa.addEventListener("input", () => {
+      if (terminou) return;
+
+      if (!inicioTempo) {
+        inicioTempo = new Date();
+        iniciarTemporizador();
+      }
+
+      const textoDigitado = caixa.value;
+      const comparacao = textoAlvo.substring(0, textoDigitado.length);
+
+      if (textoDigitado === textoAlvo) {
+        terminou = true;
+        caixa.classList.add("correto");
+        caixa.disabled = true;
+        pararTemporizador();
+
+        const fimTempo = new Date();
+        const tempoSegundos = formatarTempo(fimTempo - inicioTempo);
+
+        resultado.innerHTML = `✅ <strong>Parabéns!</strong> Você digitou tudo corretamente.<br>
+          ⏱️ Tempo final: <strong>${tempoSegundos}</strong> segundos.<br>
+          ❌ Erros cometidos: <strong>${erros}</strong>.`;
+      } else if (textoDigitado === comparacao) {
+        caixa.classList.remove("errado");
+        caixa.classList.add("correto");
+      } else {
+        caixa.classList.remove("correto");
+        caixa.classList.add("errado");
+        erros++;
+      }
+    });
+
+    reset();
+  </script>
+</body>
+</html>
