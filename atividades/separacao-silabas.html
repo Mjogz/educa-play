@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Separação de Sílabas - EducaPlay</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4fdf6;
+    color: #333;
+}
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+main {
+    max-width: 800px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+#stars {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #2a7a2a;
+    margin-bottom: 20px;
+}
+#instruction {
+    font-size: 1.2em;
+    color: #155715;
+    margin-bottom: 20px;
+}
+.syllables {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.syllable-btn {
+    padding: 10px 20px;
+    background-color: #d4edda;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.syllable-btn:hover {
+    background-color: #c3e6cb;
+}
+#answer {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    min-height: 30px;
+}
+#feedback {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    min-height: 24px;
+    color: #d9534f; /* vermelho por padrão para erro */
+}
+#check-btn, #next-btn {
+    padding: 12px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-right: 10px;
+}
+#check-btn:hover, #next-btn:hover {
+    background-color: #45a049;
+}
+#next-btn {
+    display: none;
+}
+#final-message {
+    font-size: 1.3em;
+    color: #155715;
+    font-weight: 600;
+    margin-top: 20px;
+}
+.botao-amarelo {
+    background-color: #FFD700;
+    color: #000;
+    border: none;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    display: block;
+    margin: 20px auto 0 auto;
+}
+.botao-amarelo:hover {
+    background-color: #e6c200;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Sílabas</h1>
+</header>
+
+<main>
+<div id="stars">⭐ 0</div>
+<div id="instruction">Forme a palavra correta clicando nas sílabas na ordem certa:</div>
+<div class="syllables" id="syllables"></div>
+<div id="answer"></div>
+<div id="feedback"></div>
+<button id="check-btn">Verificar</button>
+<button id="next-btn">Próxima</button>
+<div id="final-message"></div>
+<button type="button" onclick="window.location.href='../index.html'" class="botao-amarelo" style="display:none;" id="back-btn">Voltar ao Menu</button>
+</main>
+
+<script>
+const syllablesEl = document.getElementById("syllables");
+const answerEl = document.getElementById("answer");
+const feedbackEl = document.getElementById("feedback");
+const checkBtn = document.getElementById("check-btn");
+const nextBtn = document.getElementById("next-btn");
+const starsEl = document.getElementById("stars");
+const finalMessageEl = document.getElementById("final-message");
+const backBtn = document.getElementById("back-btn");
+
+let currentWord = 0;
+let score = 0;
+
+// Lista de palavras com suas sílabas
+const words = [
+    { word: "casa", syllables: ["ca", "sa"] },
+    { word: "passarinho", syllables: ["pas", "sa", "ri", "nho"] },
+    { word: "bola", syllables: ["bo", "la"] },
+    { word: "amigo", syllables: ["a", "mi", "go"] },
+    { word: "gato", syllables: ["ga", "to"] }
+];
+
+let currentAnswer = [];
+
+function shuffle(array) {
+    return array.sort(() => Math.random() - 0.5);
+}
+
+function showWord() {
+    const w = words[currentWord];
+    currentAnswer = [];
+    answerEl.textContent = "";
+    feedbackEl.textContent = "";
+    checkBtn.style.display = "inline-block";
+    nextBtn.style.display = "none";
+
+    syllablesEl.innerHTML = "";
+    const shuffled = shuffle([...w.syllables]);
+    shuffled.forEach(s => {
+        const btn = document.createElement("button");
+        btn.textContent = s;
+        btn.classList.add("syllable-btn");
+        btn.onclick = () => {
+            currentAnswer.push(s);
+            answerEl.textContent = currentAnswer.join("");
+        };
+        syllablesEl.appendChild(btn);
+    });
+}
+
+checkBtn.onclick = () => {
+    const w = words[currentWord];
+    if (currentAnswer.join("") === w.word) {
+        score++;
+        starsEl.textContent = `⭐ ${score}`;
+        feedbackEl.style.color = "#28a745"; // verde para acerto
+        feedbackEl.textContent = "✅ Correto! Clique em Próxima.";
+        checkBtn.style.display = "none";
+        nextBtn.style.display = "inline-block";
+    } else {
+        feedbackEl.style.color = "#d9534f"; // vermelho para erro
+        feedbackEl.textContent = "❌ Incorreto! Tente novamente.";
+        currentAnswer = [];
+        answerEl.textContent = "";
+    }
+};
+
+nextBtn.onclick = () => {
+    currentWord++;
+    if (currentWord < words.length) {
+        showWord();
+    } else {
+        showFinalMessage();
+    }
+};
+
+function showFinalMessage() {
+    syllablesEl.style.display = "none";
+    answerEl.style.display = "none";
+    checkBtn.style.display = "none";
+    nextBtn.style.display = "none";
+    feedbackEl.style.display = "none";
+    starsEl.style.fontSize = "2em";
+    finalMessageEl.innerHTML = `✨ Você concluiu todas as palavras!<br>Acertos: <strong>${score}</strong> de <strong>${words.length}</strong> ⭐`;
+    backBtn.style.display = "block";
+}
+
+showWord();
+</script>
+
+</body>
+</html>

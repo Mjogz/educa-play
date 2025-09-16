@@ -45,6 +45,28 @@
       color: #4CAF50;
     }
 
+    /* Botões de categoria */
+    .filter-buttons {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-buttons button {
+      background-color: #FFEB3B;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .filter-buttons button:hover {
+      background-color: #fdd835;
+    }
+
     .menu ul {
       list-style: none;
       padding: 0;
@@ -87,7 +109,7 @@
 <body>
 
   <!-- Cabeçalho -->
-  <header style="text-align: center; padding: 20px;">
+  <header>
     <h1>EducaPlay</h1>
   </header>
 
@@ -105,33 +127,82 @@
 
       <h2>Sobre Mim</h2>
       <p>
-        Meu nome é <strong>Maria Julia</strong> sou formada em <strong>Ciência da Computação</strong>, possuo
+        Meu nome é <strong>Maria Julia</strong>, sou formada em <strong>Ciência da Computação</strong> e possuo
         <strong>Pós-Graduação em Engenharia de Software</strong>.
-        Atualmente, curso <strong>Licenciatura em Pedagogia</strong>,unindo minha paixão pela tecnologia ao desejo de
+        Atualmente curso <strong>Licenciatura em Pedagogia</strong>, unindo minha paixão pela tecnologia ao desejo de
         contribuir com a educação. Busco criar projetos pedagógicos interativos, criativos e acessíveis, que tornem o
         aprendizado mais dinâmico e significativo para as crianças.
       </p>
-
     </section>
 
     <!-- Menu de Atividades -->
     <section class="menu">
       <h2>Atividades Disponíveis</h2>
-      <ul>
-        <li><a href="atividades/quiz-bullying.html">🎯 Quiz sobre Bullying</a></li>
-        <li><a href="atividades/quiz-matematica.html">🧮 Quiz Matemática</a></li>
-        <li><a href="atividades/leitura.html">📖 Quiz Leitura</a></li>
-        <li><a href="atividades/numeros.html">🔢 Números</a></li>
-        <li><a href="atividades/digitacao.html">⌨️ Treinador de Digitação</a></li>
+
+      <!-- Botões de categoria -->
+      <div class="filter-buttons">
+        <button onclick="mostrarAtividades('matematica')">🧮 Matemática</button>
+        <button onclick="mostrarAtividades('leitura')">📚 Leitura</button>
+        <button onclick="mostrarAtividades('digitacao')">⌨️ Digitação</button>
+        <button onclick="mostrarAtividades('bullying')">🛡️ Convivência</button>
+      </div>
+
+      <!-- Lista de atividades -->
+      <ul id="listaAtividades">
+        <li>Escolha uma categoria acima ⬆️</li>
       </ul>
     </section>
-
   </div>
 
   <!-- Rodapé -->
   <footer>
     <p>&copy; 2025 | Todos os direitos reservados | Desenvolvido por Maria Julia</p>
   </footer>
+
+  <script>
+    // Banco de atividades por categoria
+    const atividades = {
+      matematica: [
+        { nome: "Quiz de Matemática", link: "atividades/quiz-matematica.html" },
+        { nome: "Tabuada", link: "atividades/tabuada.html" },
+        { nome: "Números", link: "atividades/numeros.html" },
+        { nome: "Comparação de Quantidades", link: "atividades/quantidades.html" }
+
+      ],
+      leitura: [
+        { nome: "Quiz de Leitura", link: "atividades/leitura.html" },
+        { nome: "Quiz de Interpretação", link: "atividades/interpretacao.html" },
+        { nome: "Formação de Palavras", link: "atividades/formacao-palavras.html" },
+        { nome: "Separar Silabas", link: "atividades/separacao-silabas.html" }
+
+
+      ],
+      digitacao: [
+        { nome: "Treinador de Digitação", link: "atividades/digitacao.html" }
+      ],
+      bullying: [
+        { nome: "Quiz sobre Bullying", link: "atividades/quiz-bullying.html" },
+        { nome: "Quiz sobre Empatia", link: "atividades/empatia.html" },
+        { nome: "Quiz sobre Racismo", link: "atividades/racismo.html" }
+
+      ]
+    };
+
+    function mostrarAtividades(categoria) {
+      const lista = document.getElementById("listaAtividades");
+      lista.innerHTML = ""; // limpa lista anterior
+
+      if (atividades[categoria]) {
+        atividades[categoria].forEach(atividade => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="${atividade.link}">${atividade.nome}</a>`;
+          lista.appendChild(li);
+        });
+      } else {
+        lista.innerHTML = "<li>Nenhuma atividade encontrada</li>";
+      }
+    }
+  </script>
 
 </body>
 
