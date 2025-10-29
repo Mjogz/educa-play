@@ -2,309 +2,267 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>Formação de Palavras - EducaPlay</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4fdf6;
-      margin: 0;
-    }
-
-    header {
-      background: #4CAF50;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    main {
-      max-width: 800px;
-      margin: 30px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
-    }
-
-    #stars {
-      text-align: center;
-      font-size: 1.5em;
-      margin-bottom: 12px;
-      color: #2a7a2a;
-    }
-
-    p {
-      text-align: center;
-      margin: 6px 0 18px;
-    }
-
-    .container {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .letter {
-      background: #d4edda;
-      padding: 12px 16px;
-      border-radius: 6px;
-      font-size: 1.2em;
-      cursor: grab;
-      user-select: none;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-    }
-
-    #word-zone {
-      min-height: 60px;
-      border: 2px dashed #4CAF50;
-      padding: 10px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
-
-    .btn {
-      background: #4CAF50;
-      color: white;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1.1em;
-      margin: 6px;
-    }
-
-    .btn:hover {
-      background: #45a049;
-    }
-
-    #final-message {
-      text-align: center;
-      margin-top: 12px;
-      font-size: 1.15em;
-    }
-
-    .botao-amarelo {
-      background: #FFD700;
-      padding: 12px 30px;
-      border: none;
-      font-weight: bold;
-      border-radius: 6px;
-      margin-top: 14px;
-      display: inline-block;
-      cursor: pointer;
-      font-size: 1.1em;
-      margin: 6px;
-    }
-
-    .botao-azul {
-      background: #005aa3;
-      padding: 12px 30px;
-      border: none;
-      font-weight: bold;
-      border-radius: 6px;
-      margin-top: 14px;
-      display: inline-block;
-      cursor: pointer;
-      font-size: 1.1em;
-      margin: 6px;
-    }
-
-    .image-area {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .image-area img {
-      width: 200px;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    @media (max-width:600px) {
-      .letter {
-        padding: 10px 12px;
-        font-size: 1.05em;
-      }
-
-      .btn {
-        padding: 10px 20px;
-        font-size: 1em;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Formação de Palavras - EducaPlay</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4fdf6;
+    margin: 0;
+}
+header {
+    background: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+main {
+    max-width: 800px;
+    margin: 30px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    text-align: center;
+}
+#stars {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+    color: #2a7a2a;
+    font-weight: bold;
+}
+p {
+    text-align: center;
+    margin: 8px 0 18px;
+    font-size: 1.1em;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.letter {
+    background: #d4edda;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 1.3em;
+    cursor: grab;
+    user-select: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    transition: transform 0.1s;
+}
+.letter:active { transform: scale(1.1); }
+#word-zone {
+    min-height: 60px;
+    border: 2px dashed #4CAF50;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+.btn {
+    background: #4CAF50;
+    color: white;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin: 6px;
+    transition: background 0.3s;
+}
+.btn:hover { background: #45a049; }
+.botao-amarelo {
+    background: #FFD700;
+    color: #000;
+    font-weight: bold;
+    padding: 12px 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin: 6px;
+    font-size: 1.1em;
+    transition: background 0.3s;
+}
+.botao-amarelo:hover { background: #e6c200; }
+.botao-azul {
+    background: #005aa3;
+    color: white;
+    font-weight: bold;
+    padding: 12px 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin: 6px;
+    font-size: 1.1em;
+    transition: background 0.3s;
+}
+.botao-azul:hover { background: #004080; }
+#final-message {
+    margin-top: 18px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #155715;
+}
+.image-area {
+    text-align: center;
+    margin-bottom: 18px;
+}
+.image-area img {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+@media (max-width:600px){
+    .letter { padding: 12px 14px; font-size: 1.1em; }
+    .btn, .botao-amarelo, .botao-azul { padding: 10px 20px; font-size: 1em; }
+}
+</style>
 </head>
 
 <body>
-  <header>
+<header>
     <h1>Formação de Palavras</h1>
-  </header>
+</header>
 
-  <main>
-    <div id="stars">⭐ 0</div>
-    <p>Arraste as letras para formar a palavra correta:</p>
+<main>
+<div id="stars">⭐ 0</div>
+<p>Arraste as letras para formar a palavra correta:</p>
 
-    <!-- área da imagem -->
-    <div class="image-area">
-      <img id="word-image" src="" alt="Imagem da palavra" />
-    </div>
+<div class="image-area">
+    <img id="word-image" src="" alt="Imagem da palavra" />
+</div>
 
-    <div class="container" id="letters"></div>
-    <div id="word-zone" aria-label="Espaço para formar palavra"></div>
+<div class="container" id="letters"></div>
+<div id="word-zone" aria-label="Espaço para formar palavra"></div>
 
-    <div style="text-align:center;">
-      <button class="btn" onclick="checkWord()">Verificar</button>
-      <button class="botao-azul" id="nextBtn" style="display:none;" onclick="nextWord()">Próxima</button>
-      <button class="botao-amarelo" onclick="clearZone()">Limpar</button>
-    </div>
+<!-- Botões centralizados e organizados -->
+<div style="text-align:center;">
+    <button class="btn" onclick="checkWord()">Verificar</button>
+    <button class="botao-azul" id="nextBtn" style="display:none;" onclick="nextWord()">Próxima</button>
+    <button class="btn" onclick="clearZone()">Limpar</button>
+    <button type="button" onclick="window.location.href='../index.html'" class="botao-amarelo" id="backBtn">Voltar ao Menu</button>
+</div>
 
-    <div id="final-message"></div>
-    <div style="text-align:center;">
-      <button type="button" onclick="window.location.href='../index.html'" class="botao-amarelo" id="backBtn"
-        style="display:none;">Voltar ao Menu</button>
-    </div>
-  </main>
+<div id="final-message"></div>
+</main>
 
-  <script>
-    const starsEl = document.getElementById("stars");
-    const lettersEl = document.getElementById("letters");
-    const wordZone = document.getElementById("word-zone");
-    const finalMessage = document.getElementById("final-message");
-    const nextBtn = document.getElementById("nextBtn");
-    const backBtn = document.getElementById("backBtn");
-    const imageEl = document.getElementById("word-image");
+<script>
+const starsEl = document.getElementById("stars");
+const lettersEl = document.getElementById("letters");
+const wordZone = document.getElementById("word-zone");
+const finalMessage = document.getElementById("final-message");
+const nextBtn = document.getElementById("nextBtn");
+const backBtn = document.getElementById("backBtn");
+const imageEl = document.getElementById("word-image");
 
-    let score = 0;
-    let currentIndex = 0;
+let score = 0;
+let currentIndex = 0;
 
-    // lista de palavras com imagens
-    const exercises = [
-      { word: "GATO", image: "../img/gato.png" },
-      { word: "RATO", image: "../img/rato.png" },
-      { word: "SAPO", image: "../img/sapo.png" },
-      { word: "PATO", image: "../img/pato.png" },
-      { word: "VACA", image: "../img/vaca.png" },
-      { word: "CASA", image: "../img/casa.png" },
-      { word: "ELEFANTE", image: "../img/elefante.png" },
-      { word: "MACACO", image: "../img/macaco.png" }
+const exercises = [
+    { word: "GATO", image: "../img/gato.png" },
+    { word: "RATO", image: "../img/rato.png" },
+    { word: "SAPO", image: "../img/sapo.png" },
+    { word: "PATO", image: "../img/pato.png" },
+    { word: "VACA", image: "../img/vaca.png" },
+    { word: "CASA", image: "../img/casa.png" },
+    { word: "ELEFANTE", image: "../img/elefante.png" },
+    { word: "MACACO", image: "../img/macaco.png" }
+];
 
+function uid(prefix = "") { return prefix + Math.random().toString(36).slice(2, 9); }
 
-    ];
+function loadWord() {
+    lettersEl.innerHTML = "";
+    wordZone.innerHTML = "";
+    finalMessage.textContent = "";
+    nextBtn.style.display = "none";
 
-    // gerar ID único
-    function uid(prefix = "") {
-      return prefix + Math.random().toString(36).slice(2, 9);
-    }
+    const { word, image } = exercises[currentIndex];
+    imageEl.src = image;
+    imageEl.alt = "Imagem da palavra " + word;
 
-    // carregar palavra
-    function loadWord() {
-      lettersEl.innerHTML = "";
-      wordZone.innerHTML = "";
-      finalMessage.textContent = "";
-      nextBtn.style.display = "none";
-      backBtn.style.display = "none";
+    const lettersArr = word.split("").map((ch,i)=>({ch,id:`${ch}-${i}-${uid()}`}));
+    lettersArr.sort(()=>Math.random()-0.5);
 
-      const { word, image } = exercises[currentIndex];
-      imageEl.src = image;
-      imageEl.alt = "Imagem da palavra " + word;
-
-      // cria array de objetos {ch, id}
-      const lettersArr = word.split("").map((ch, i) => ({ ch, id: `${ch}-${i}-${uid()}` }));
-      // embaralha
-      lettersArr.sort(() => Math.random() - 0.5);
-
-      // criar letras
-      lettersArr.forEach(item => {
-        const div = document.createElement("div");
-        div.textContent = item.ch;
-        div.className = "letter";
-        div.id = item.id;
-        div.draggable = true;
-
-        div.addEventListener("dragstart", (e) => {
-          e.dataTransfer.setData("text/plain", item.id);
-          setTimeout(() => div.style.opacity = "0.5", 0);
+    lettersArr.forEach(item=>{
+        const div=document.createElement("div");
+        div.textContent=item.ch;
+        div.className="letter";
+        div.id=item.id;
+        div.draggable=true;
+        div.addEventListener("dragstart",(e)=>{
+            e.dataTransfer.setData("text/plain",item.id);
+            setTimeout(()=>div.style.opacity="0.5",0);
         });
-        div.addEventListener("dragend", () => {
-          div.style.opacity = "1";
-        });
-
+        div.addEventListener("dragend",()=>{div.style.opacity="1";});
         lettersEl.appendChild(div);
-      });
-    }
-
-    // drop sempre ativo (fora do loadWord)
-    wordZone.addEventListener("dragover", (e) => e.preventDefault());
-    wordZone.addEventListener("drop", (e) => {
-      e.preventDefault();
-      const id = e.dataTransfer.getData("text/plain");
-      const dragged = document.getElementById(id);
-      if (dragged && dragged.parentElement !== wordZone) {
-        wordZone.appendChild(dragged);
-      }
     });
+}
 
-    // clicar devolve a letra
-    wordZone.addEventListener("click", (e) => {
-      if (e.target && e.target.classList.contains("letter")) {
+wordZone.addEventListener("dragover",e=>e.preventDefault());
+wordZone.addEventListener("drop",e=>{
+    e.preventDefault();
+    const id = e.dataTransfer.getData("text/plain");
+    const dragged = document.getElementById(id);
+    if(dragged && dragged.parentElement!==wordZone){ wordZone.appendChild(dragged); }
+});
+
+wordZone.addEventListener("click",e=>{
+    if(e.target && e.target.classList.contains("letter")){
         lettersEl.appendChild(e.target);
-      }
-    });
+    }
+});
 
-    // verificar palavra
-    function checkWord() {
-      const formed = Array.from(wordZone.children).map(l => l.textContent).join("");
-      const { word } = exercises[currentIndex];
-
-      if (!formed) {
-        finalMessage.textContent = "Você precisa colocar as letras no espaço primeiro.";
+function checkWord(){
+    const formed = Array.from(wordZone.children).map(l=>l.textContent).join("");
+    const { word } = exercises[currentIndex];
+    if(!formed){
+        finalMessage.textContent="Você precisa colocar as letras no espaço primeiro.";
         return;
-      }
-
-      if (formed === word) {
+    }
+    if(formed===word){
         score++;
-        starsEl.textContent = `⭐ ${score}`;
-        finalMessage.textContent = "Parabéns! Palavra correta 🎉";
-        nextBtn.style.display = "inline-block";
-      } else {
-        finalMessage.textContent = "Ops! Está incorreta. Limpe para tentar novamente.";
-      }
+        starsEl.textContent=`⭐ ${score}`;
+        finalMessage.textContent="Parabéns! Palavra correta 🎉";
+        nextBtn.style.display="inline-block";
+    }else{
+        finalMessage.textContent="Ops! Está incorreta. Limpe para tentar novamente.";
     }
+}
 
-    function nextWord() {
-      currentIndex++;
-      if (currentIndex < exercises.length) {
+function nextWord(){
+    currentIndex++;
+    if(currentIndex<exercises.length){
         loadWord();
-      } else {
+    }else{
         showFinalMessage();
-      }
     }
+}
 
-    function clearZone() {
-      const elems = Array.from(wordZone.children);
-      elems.forEach(el => lettersEl.appendChild(el));
-      finalMessage.textContent = "";
-      nextBtn.style.display = "none";
-    }
+function clearZone(){
+    const elems = Array.from(wordZone.children);
+    elems.forEach(el=>lettersEl.appendChild(el));
+    finalMessage.textContent="";
+    nextBtn.style.display="none";
+}
 
-    function showFinalMessage() {
-      wordZone.style.display = "none";
-      imageEl.style.display = "none";
-      nextBtn.style.display = "none";
-      finalMessage.innerHTML = `✨ Você concluiu todas as palavras!<br>Acertos: <strong>${score}</strong> de <strong>${exercises.length}</strong> ⭐`;
-      backBtn.style.display = "inline-block";
-    }
+function showFinalMessage(){
+    wordZone.style.display="none";
+    imageEl.style.display="none";
+    nextBtn.style.display="none";
+    finalMessage.innerHTML=`✨ Você concluiu todas as palavras!<br>Acertos: <strong>${score}</strong> de <strong>${exercises.length}</strong> ⭐`;
+    backBtn.style.display="inline-block";
+}
 
-    // iniciar
-    loadWord();
-  </script>
+loadWord();
+</script>
 </body>
 </html>

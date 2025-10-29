@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Consciência Negra - EducaPlay</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4fdf6;
+      color: #333;
+    }
+
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    #intro-text {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #stars {
+      text-align: center;
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #2a7a2a;
+      margin-bottom: 20px;
+      user-select: none;
+      display: none;
+    }
+
+    #question {
+      font-size: 1.4em;
+      text-align: center;
+      color: #155715;
+      margin-bottom: 25px;
+      min-height: 60px;
+      user-select: none;
+      display: none;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .option-btn {
+      padding: 15px;
+      background: #d4edda;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.1em;
+      color: #155715;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+      user-select: none;
+      text-align: left;
+    }
+
+    .option-btn:hover {
+      background: #c3e6cb;
+    }
+
+    .option-btn.correct {
+      background: #28a745;
+      color: white;
+      font-weight: bold;
+    }
+
+    .option-btn.incorrect {
+      background: #f44336;
+      color: white;
+      font-weight: bold;
+    }
+
+    #next-btn {
+      display: block;
+      margin: 0 auto 20px auto;
+      padding: 12px 30px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: background-color 0.3s;
+      user-select: none;
+      display: none;
+    }
+
+    #next-btn:hover {
+      background: #45a049;
+    }
+
+    #final-message {
+      text-align: center;
+      font-size: 1.3em;
+      margin-top: 25px;
+      color: #155715;
+      font-weight: 600;
+      user-select: none;
+      display: none;
+    }
+
+    .botao-amarelo {
+      background: #FFD700;
+      color: #000;
+      border: none;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 12px 30px;
+      font-size: 1.1em;
+      display: block;
+      margin: 20px auto 0 auto;
+      transition: background-color 0.3s;
+      text-align: center;
+    }
+
+    .botao-amarelo:hover {
+      background: #e6c200;
+    }
+
+    #coloring-img {
+      display: block;
+      margin: 20px auto;
+      max-width: 250px;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin: 15px;
+        padding: 20px;
+      }
+
+      #question {
+        font-size: 1.2em;
+      }
+
+      .option-btn {
+        font-size: 1em;
+        padding: 12px;
+      }
+
+      #next-btn,
+      .botao-amarelo {
+        padding: 10px 20px;
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Dia 20 de novembro: Dia da Consciência Negra</h1>
+  </header>
+
+  <main>
+    <div id="intro-text">
+      <br> <strong>Hora da Leitura</strong><br>
+      <br>
+
+      Era uma vez uma menina negra que tinha um lindo laço de fita no cabelo. <br>Todos os animais e crianças da vila
+      achavam ela muito bonita. <br> Alguns tinham curiosidade sobre sua cor de pele, mas logo aprenderam que sua beleza
+      não tinha nada de diferente do que já conheciam.
+
+      <br>Ela brincava, corria e se divertia com todos. <br>A história mostra que cada pessoa é especial, que devemos
+      respeitar as diferenças, e que a beleza negra é importante e deve ser valorizada.
+    </div>
+
+    <button id="start-btn" class="botao-amarelo">Começar Quiz</button>
+
+    <div id="stars">⭐ 0</div>
+    <div id="question">Carregando pergunta...</div>
+    <div class="options" id="options"></div>
+    <button id="next-btn">Próxima</button>
+    <div id="final-message"></div>
+    <button type="button" onclick="window.location.href='../index.html'" class="botao-amarelo" id="back-btn"
+      style="display:none;">Voltar ao Menu</button>
+  </main>
+
+  <script>
+    const startBtn = document.getElementById("start-btn");
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const nextBtn = document.getElementById("next-btn");
+    const starsEl = document.getElementById("stars");
+    const finalMessageEl = document.getElementById("final-message");
+    const backBtn = document.getElementById("back-btn");
+    const introText = document.getElementById("intro-text");
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const quiz = [
+      {
+        text: "Quem é a personagem principal da história?",
+        options: ["Uma menina negra com um lindo laço de fita", "Um menino branco", "Um cachorro", "Um pássaro"],
+        correct: "Uma menina negra com um lindo laço de fita"
+      },
+      {
+        text: "Como os animais e crianças da vila viam a menina?",
+        options: ["Muito bonita e especial", "Com medo dela", "Indiferentes", "Achavam chata"],
+        correct: "Muito bonita e especial"
+      },
+      {
+        text: "O que algumas pessoas tinham curiosidade sobre a menina?",
+        options: ["Sua cor de pele", "Sua comida favorita", "Seu animal de estimação", "Seu brinquedo preferido"],
+        correct: "Sua cor de pele"
+      },
+      {
+        text: "O que a menina fazia com os colegas e animais?",
+        options: ["Brincava, corria e se divertia", "Ficava sozinha", "Brincava apenas com alguns amigos", "Não gostava de brincar"],
+        correct: "Brincava, corria e se divertia"
+      },
+      {
+        text: "Qual é a lição da história?",
+        options: [
+          "Cada pessoa é especial e devemos respeitar as diferenças",
+          "Só pessoas bonitas merecem atenção",
+          "É importante brincar sozinho",
+          "Animais são mais importantes que crianças"
+        ],
+        correct: "Cada pessoa é especial e devemos respeitar as diferenças"
+      },
+      {
+        text: "Por que valorizamos a beleza negra?",
+        options: [
+          "Para mostrar que todas as cores de pele são importantes e devem ser valorizadas",
+          "Porque é moda",
+          "Porque só algumas pessoas são bonitas",
+          "Não tem importância"
+        ],
+        correct: "Para mostrar que todas as cores de pele são importantes e devem ser valorizadas"
+      }
+    ];
+
+    function showQuestion() {
+      const q = quiz[currentQuestion];
+      questionEl.textContent = q.text;
+      optionsEl.innerHTML = "";
+      nextBtn.style.display = "none";
+
+      q.options.forEach(opcao => {
+        const btn = document.createElement("button");
+        btn.textContent = opcao;
+        btn.classList.add("option-btn");
+        btn.onclick = () => selectAnswer(btn, opcao, q.correct);
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(button, selected, correct) {
+      const buttons = document.querySelectorAll(".option-btn");
+      buttons.forEach(btn => btn.disabled = true);
+
+      if (selected === correct) {
+        button.classList.add("correct");
+        score++;
+        starsEl.textContent = `⭐ ${score}`;
+      } else {
+        button.classList.add("incorrect");
+        buttons.forEach(btn => {
+          if (btn.textContent === correct) {
+            btn.classList.add("correct");
+          }
+        });
+      }
+
+      nextBtn.style.display = "block";
+    }
+
+    nextBtn.onclick = () => {
+      currentQuestion++;
+      if (currentQuestion < quiz.length) {
+        showQuestion();
+      } else {
+        showFinalMessage();
+      }
+    };
+
+    function showFinalMessage() {
+      questionEl.style.display = "none";
+      optionsEl.style.display = "none";
+      nextBtn.style.display = "none";
+      starsEl.style.fontSize = "2em";
+      finalMessageEl.style.display = "block";
+      finalMessageEl.innerHTML = `✨ Você concluiu o quiz!<br>Acertos: <strong>${score}</strong> de <strong>${quiz.length}</strong> ⭐`;
+      backBtn.style.display = "block";
+    }
+
+    startBtn.onclick = () => {
+      introText.style.display = "none";
+      startBtn.style.display = "none";
+      starsEl.style.display = "block";
+      questionEl.style.display = "block";
+      optionsEl.style.display = "flex";
+      showQuestion();
+    };
+  </script>
+</body>
+
+</html>

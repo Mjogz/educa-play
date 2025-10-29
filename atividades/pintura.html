@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividade de Desenho com Pincéis</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4fdf6; margin:0; padding:0; text-align:center; }
+    header { background:#4CAF50; color:white; padding:20px; }
+    main { max-width:600px; margin:30px auto; background:white; padding:20px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+    canvas { border:1px solid #000; margin-top:15px; cursor:crosshair; }
+    .tools { margin-top:10px; }
+    .tool-btn { padding:10px 15px; margin:5px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; }
+    .botao-amarelo { background-color:#FFD700; color:#000; border:none; font-weight:bold; border-radius:6px; cursor:pointer; padding:12px 30px; font-size:1.1em; display:block; margin:20px auto 0 auto; transition: background-color 0.3s; }
+    .botao-amarelo:hover { background-color:#e6c200; }
+  </style>
+</head>
+<body>
+  <header><h1>Arte Digital - Desenho e Pintura</h1></header>
+  <main>
+    <p>Escolha a cor e o pincel para desenhar ou pintar!</p>
+    <canvas id="drawingCanvas" width="500" height="400"></canvas>
+    
+    <div class="tools">
+      <span>Cor: </span>
+      <button class="tool-btn" style="background:black; color:white;" onclick="setColor('black')">Preto</button>
+      <button class="tool-btn" style="background:rgb(165, 108, 2); color:white;" onclick="setColor('brown')">Marrom</button>
+      <button class="tool-btn" style="background:red; color:white;" onclick="setColor('red')">Vermelho</button>
+      <button class="tool-btn" style="background:yellow; color:black;" onclick="setColor('yellow')">Amarelo</button>
+      <button class="tool-btn" style="background:blue; color:white;" onclick="setColor('blue')">Azul</button>
+          <button class="tool-btn" style="background:rgb(5, 160, 57); color:white;" onclick="setColor('green')">Verde</button>
+
+    </div>
+
+    <div class="tools">
+      <span>Pincel: </span>
+      <button class="tool-btn" onclick="setBrush('fine')">Fino</button>
+      <button class="tool-btn" onclick="setBrush('thick')">Grosso</button>
+      <button class="tool-btn" style="background:white; color:black;" onclick="clearCanvas()">Limpar</button>
+    </div>
+
+    <button class="botao-amarelo" onclick="window.location.href='../index.html'">Voltar ao Menu</button>
+  </main>
+
+  <script>
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+    let color = 'black';
+    let brushSize = 3; // default fino
+    let lastX = 0;
+    let lastY = 0;
+
+    function setColor(c){ color = c; }
+    function setBrush(type){ brushSize = (type==='fine')?3:15; }
+    function clearCanvas(){ ctx.clearRect(0,0,canvas.width,canvas.height); }
+
+    canvas.addEventListener('mousedown', e => { drawing = true; [lastX,lastY] = [e.offsetX, e.offsetY]; });
+    canvas.addEventListener('mouseup', () => drawing = false);
+    canvas.addEventListener('mouseout', () => drawing = false);
+    canvas.addEventListener('mousemove', draw);
+
+    function draw(e){
+      if(!drawing) return;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = brushSize;
+      ctx.lineCap = 'round';
+
+      ctx.beginPath();
+      ctx.moveTo(lastX,lastY);
+      ctx.lineTo(e.offsetX,e.offsetY);
+      ctx.stroke();
+      [lastX,lastY] = [e.offsetX,e.offsetY];
+    }
+  </script>
+</body>
+</html>
